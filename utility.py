@@ -25,3 +25,21 @@ class Utility:
                     print(key, ':', depth)
         except Exception as exception:
             raise RuntimeError('Oops! Something went wrong in key level print.', exception)
+
+    def find_least_common_ancestor(self, root, node1, node2):
+        try:
+            if root is None:
+                return None
+
+            if root.key == node1 or root.key == node2:
+                return root
+
+            left_lca = self.find_least_common_ancestor(root.left, node1, node2)
+            right_lca = self.find_least_common_ancestor(root.right, node1, node2)
+
+            if left_lca and right_lca:
+                return root
+
+            return left_lca if left_lca is not None else right_lca
+        except Exception as exception:
+            raise RuntimeError('Oops! Something went wrong finding Least Common Ancestor.', exception)
